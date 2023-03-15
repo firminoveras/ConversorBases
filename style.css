@@ -1,13 +1,13 @@
 @font-face {
   font-family: 'PoretOne';
   /*a name to be used later*/
-  src: url('/src/fonts/PoiretOne.ttf')
+  src: url('./src/fonts/PoiretOne.ttf')
 }
 
 @font-face {
   font-family: 'PassionOne';
   /*a name to be used later*/
-  src: url('/src/fonts/PassionOne.ttf')
+  src: url('./src/fonts/PassionOne.ttf')
 }
 p{
   font-family: PoretOne;
@@ -54,7 +54,7 @@ p{
   height: 600px;
   padding: 100px;
   text-align: center;
-  background-image: url('/src/drawables/background.png');
+  background-image: url('./src/drawables/background.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
