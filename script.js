@@ -65,12 +65,38 @@ function updateConversion() {
 	}
 }
 
+function baseSelectorCustomApply() {
+	let text = document.getElementById('baseSelectorCustom').value
+	if (text.length > 0) {
+		if (lastBase == LAST_BASE_IN) {
+			document.getElementById('inChangeButton').innerHTML = text
+			inBase = Number(text)
+		} else {
+			document.getElementById('outChangeButton').innerHTML = text
+			outBase = Number(text)
+		}
+		updateConversion();
+	}
+}
+
 
 
 (function (window, document, undefined) {
 	window.onload = init;
 	function init() {
 
+		document.getElementById('numberInput').addEventListener('click', function (evt) {
+			lastBase = LAST_BASE_IN;
+			document.getElementById('arrowUp').style.visibility = 'visible'
+			document.getElementById('backgroundSelectorDiv').style.visibility = 'visible'
+			document.getElementById('arrowDown').style.visibility = 'hidden'
+		})
+		document.getElementById('numberOutput').addEventListener('click', function (evt) {
+			lastBase = LAST_BASE_OUT;
+			document.getElementById('arrowUp').style.visibility = 'hidden'
+			document.getElementById('arrowDown').style.visibility = 'visible'
+			document.getElementById('backgroundSelectorDiv').style.visibility = 'visible'
+		})
 
 		document.getElementById('numberInput').addEventListener('input', function (evt) {
 			updateConversion();
@@ -132,20 +158,10 @@ function updateConversion() {
 		})
 
 		document.getElementById('baseSelectorCustom').addEventListener('input', function (evt) {
-
-			let text = document.getElementById('baseSelectorCustom').value
-			if (text.length > 0) {
-				if (lastBase == LAST_BASE_IN) {
-					document.getElementById('inChangeButton').innerHTML = text
-					inBase = Number(text)
-				} else {
-					document.getElementById('outChangeButton').innerHTML = text
-					outBase = Number(text)
-				}
-				updateConversion();
-			} else {
-
-			}
+			baseSelectorCustomApply()
+		})
+		document.getElementById('baseSelectorCustom').addEventListener('click', function (evt) {
+			baseSelectorCustomApply()
 		})
 	}
 })(window, document, undefined);

@@ -129,12 +129,13 @@ p{
   border-radius: 10px;
   font-family: 'PassionOne';
   color: white;
-  border-style: dotted;
   border-color: white;
   border-width: 3px;
   text-align: center;
   font-size: 20px;
   padding-bottom: 4px;
+
+  border-style: solid;
   outline: none
 }
 
@@ -149,10 +150,12 @@ p{
 .inputIn {
   height: 42.33px;
   width: 60.32px;
+
+  border-style: dashed;
 }
 
 .labelIn {
-  background-color: cornflowerblue;
+  background-color: #6495ed;
   border-radius: 100px;
   height: 30px;
   width: 50px;
