@@ -1,0 +1,187 @@
+@font-face {
+  font-family: 'PoretOne';
+  /*a name to be used later*/
+  src: url('PoiretOne.ttf')
+}
+
+@font-face {
+  font-family: 'PassionOne';
+  /*a name to be used later*/
+  src: url('PassionOne.ttf')
+}
+p{
+  font-family: PoretOne;
+  margin: 0px;
+}
+.t1,
+.t2 {
+  color: white;
+  font-family: PoretOne;
+  letter-spacing: 8px;
+  text-align: center;
+  margin: 0px;
+}
+
+.t1 {
+  margin-top: 32px;
+  font-size: 44px;
+}
+
+.t2 {
+  font-size: 60px;
+  margin-bottom: 40px;
+}
+
+.bottomBox {
+  position: absolute;
+  text-align: end;
+  bottom: 0;
+  right: 0;
+  padding: 15px;
+}
+
+.divIn {
+  vertical-align: middle;
+}
+
+.box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -400px;
+  margin-left: -450px;
+  width: 700px;
+  height: 600px;
+  padding: 100px;
+  text-align: center;
+  background-image: url('background.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.numberInput,
+.numberOutput {
+  width: 500px;
+  height: 60px;
+  border-radius: 100px;
+  border: none;
+  padding: 8px;
+  color: #bbb;
+  font-size: 40px;
+  text-align: center;
+  font-family: 'PassionOne';
+  font-weight: 100;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  outline: none;
+}
+
+.numberInput:focus {
+  border-color: #71ccd5;
+  color: #71ccd5;
+}
+
+.btExpand {
+  position: absolute;
+  background-color: cornflowerblue;
+  border-radius: 100px;
+  height: 54px;
+  width: 80px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  margin-left: -92px;
+  border-style: none;
+  font-size: 32px;
+  font-family: 'PassionOne';
+  color: white;
+  align-self: center;
+}
+
+.btExpand:hover {
+  background-color: lightseagreen;
+}
+
+.divInput {
+  vertical-align: middle;
+}
+
+.divBtIn,
+.divLabelIn {
+  width: 400px;
+  margin: auto;
+  justify-content: space-around;
+  display: flex;
+}
+
+.divLabelIn {
+  margin: -15px auto;
+  margin-bottom: 5px;
+}
+
+.btIn,
+.inputIn {
+  vertical-align: middle;
+  border: #71ccd5;
+  height: 50px;
+  width: 70px;
+  background-color: #0000;
+  border-radius: 10px;
+  font-family: 'PassionOne';
+  color: white;
+  border-style: dotted;
+  border-color: white;
+  border-width: 3px;
+  text-align: center;
+  font-size: 20px;
+  padding-bottom: 4px;
+  outline: none
+}
+
+.btIn:hover {
+  background-color: #ffffff2c;
+}
+
+.inputIn:hover {
+  background-color: #ffffff2c;
+}
+
+.inputIn {
+  height: 42.33px;
+  width: 60.32px;
+}
+
+.labelIn {
+  background-color: cornflowerblue;
+  border-radius: 100px;
+  height: 30px;
+  width: 50px;
+  font-size: 10px;
+  border-style: none;
+  padding: 6px 12px;
+  font-family: 'PassionOne';
+  color: white;
+  align-self: center;
+  padding-inline: 0px 0px;
+}
+
+.backgroundSelectorDiv {
+  background-color: #4169e1;
+  transform: translateZ(1px);
+  border-radius: 15px;
+  padding-top: 15px;
+  padding-bottom: 7px;
+  width: 420px;
+  margin: auto;
+}
+
+.arrowUp {
+  fill: sandybrown;
+  margin-bottom: -5px;
+}
+
+.arrowDown {
+  visibility: hidden;
+  fill: sandybrown;
+  transform: rotate(180deg);
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<title>Calculadora de Bases</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="script.js"></script>
+	<meta charset="utf-8">
+</head>
+
+<body>
+	<div class="box">
+		<h1 class="t1">CALCULADORA</h1>
+		<h1 class="t2">DE BASES</h1>
+		<div class="divInput">
+			<input class="numberInput" id="numberInput" maxlength="15">
+			<button class="btExpand" id="inChangeButton">2</button>
+		</div>
+
+		<div id="inDiv" class="inDiv">
+			<img src="arrow.svg" class="arrowUp" id="arrowUp">
+			<div class="backgroundSelectorDiv" id="backgroundSelectorDiv">
+				<div class="divBtIn">
+					<button class="btIn" id="baseSelector2">2</button>
+					<button class="btIn" id="baseSelector8">8</button>
+					<button class="btIn" id="baseSelector10">10</button>
+					<button class="btIn" id="baseSelector16">16</button>
+					<input class="inputIn" id="baseSelectorCustom" maxlength="2" value="20">
+				</div>
+				<div class="divLabelIn">
+					<button class="labelIn">BIN</button>
+					<button class="labelIn">OCT</button>
+					<button class="labelIn">DEC</button>
+					<button class="labelIn">HEX</button>
+					<button class="labelIn">OUTRO</button>
+				</div>
+			</div>
+			<img src="arrow.svg" class="arrowDown" id="arrowDown">
+		</div>
+
+
+		<div class="divInput">
+			<input class="numberOutput" id="numberOutput" maxlength="15">
+			<button class="btExpand" id="outChangeButton">10</button>
+		</div>
+	</div>
+
+	<div class="bottomBox">
+		<p style="font-size: 20px;">Desenvolvido por Firmino Veras</p>
+		<p style="font-size: 12px;">Desafio da Disciplina de Cálculo Numérico</p>
+		<p style="font-size: 12px;">Professor:</p>
+		<p style="font-size: 12px;">Universidade Estadual da Paraíba</p>
+		<p style="font-size: 12px;">2023</p>
+	</div>
+
+</body>
+
+</html>
