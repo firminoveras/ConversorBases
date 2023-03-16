@@ -7,11 +7,27 @@ let lastBase = LAST_BASE_IN;
 
 function convertToDec(num, base) {
 	num = num.toString()
-	if (base == 10) return num
 	num = num.toUpperCase();
 	if (base < 2 || base > 35) throw new Error("Base não suportada!");
-	let exp = 0;
-	let result = 0;
+	let exp;
+	let result = 0.0;
+
+	if (num.includes('.')) {
+		fracNumber = num.split('.')[1]
+		num = num.split('.')[0]
+		exp = -1;
+		for (var i = 0; i < fracNumber.length; i++) {
+			let number;
+			if (fracNumber.charCodeAt(i) >= 48 && fracNumber.charCodeAt(i) < 48 + base)
+				number = Number(fracNumber[i]);
+			else if (fracNumber.charCodeAt(i) >= 65 && fracNumber.charCodeAt(i) < (55 + base) && base > 10)
+				number = (fracNumber.charCodeAt(i)) - 55;
+			else throw new Error("Algarismo inválido!");
+			result += number * (base ** exp);
+			exp--;
+		}
+	}
+	exp = 0;
 	for (var i = num.length - 1; i >= 0; i--) {
 		let number;
 		if (num.charCodeAt(i) >= 48 && num.charCodeAt(i) < 48 + base)
@@ -26,6 +42,7 @@ function convertToDec(num, base) {
 }
 
 function convertFromDec(num, base) {
+	if(base == 10) return num
 	if (base < 2 || base > 35) throw new Error("Base não suportada!");
 	let n = Number(num)
 	let results = [];
@@ -42,6 +59,7 @@ function convertFromDec(num, base) {
 			r = String.fromCharCode(55 + r)
 		out += r;
 	}
+
 	return out;
 }
 
