@@ -5,24 +5,22 @@ let inBase = 2
 let outBase = 10
 let lastBase = LAST_BASE_IN;
 
-function validBase(base){
+function validBase(base) {
 	return base >= 2 && base <= 36 && /^[0-9]{1,2}$/.test(base)
 }
 
 function convertToDec(num, base) {
-	num = num.toString()
-	num = num.toUpperCase();
+	num = num.toString().toUpperCase();
 	if (!validBase(base)) throw new Error("Base não suportada!");
-	let exp;
+	let exp = -1;
 	let result = 0.0;
 
 	if (num.includes('.')) {
 		fracNumber = num.split('.')[1]
 		num = num.split('.')[0]
-		exp = -1;
 		for (var i = 0; i < fracNumber.length; i++) {
 			let number;
-			if (fracNumber.charCodeAt(i) >= 48 && fracNumber.charCodeAt(i) < 48 + Math.min(base,9))
+			if (fracNumber.charCodeAt(i) >= 48 && fracNumber.charCodeAt(i) < 48 + Math.min(base, 9))
 				number = Number(fracNumber[i]);
 			else if (fracNumber.charCodeAt(i) >= 65 && fracNumber.charCodeAt(i) < (55 + base) && base > 10)
 				number = (fracNumber.charCodeAt(i)) - 55;
@@ -34,15 +32,12 @@ function convertToDec(num, base) {
 	exp = 0;
 	for (var i = num.length - 1; i >= 0; i--) {
 		let number;
-		if (num.charCodeAt(i) >= 48 && num.charCodeAt(i) < 48 + Math.min(base,9))
+		if (num.charCodeAt(i) >= 48 && num.charCodeAt(i) < 48 + Math.min(base, 9))
 			number = Number(num[i]);
-		else if (num.charCodeAt(i) >= 65 && num.charCodeAt(i) < (55 + base) && base > 10){
-
+		else if (num.charCodeAt(i) >= 65 && num.charCodeAt(i) < (55 + base) && base > 10)
 			number = (num.charCodeAt(i)) - 55;
-		}
 		else throw new Error("Algarismo inválido!");
 		result += number * (base ** exp);
-		//console.log(number+"x"+base+"^"+exp);
 		exp++;
 	}
 	return result;
@@ -66,7 +61,6 @@ function convertFromDec(num, base) {
 			r = String.fromCharCode(55 + r)
 		out += r;
 	}
-
 	return out;
 }
 
@@ -143,12 +137,10 @@ function setBaseSelectorVisible(visibility) {
 		})
 
 		document.getElementById('numberInput').addEventListener('input', function (evt) { updateConversion(); })
-
 		document.getElementById('baseSelector2').addEventListener('click', () => updateBaseOfLastElement(2))
 		document.getElementById('baseSelector8').addEventListener('click', () => updateBaseOfLastElement(8))
 		document.getElementById('baseSelector10').addEventListener('click', () => updateBaseOfLastElement(10))
 		document.getElementById('baseSelector16').addEventListener('click', () => updateBaseOfLastElement(16))
-
 		document.getElementById('baseSelectorCustom').addEventListener('keypress', function (evt) { if (evt.key == 'Enter') baseSelectorCustomApply() })
 	}
 })(window, document, undefined);
