@@ -15,6 +15,7 @@ p{
 }
 .t1,
 .t2 {
+  font-size: 44px;
   color: white;
   font-family: PoretOne;
   letter-spacing: 8px;
@@ -22,14 +23,8 @@ p{
   margin: 0px;
 }
 
-.t1 {
-  margin-top: 32px;
-  font-size: 44px;
-}
-
 .t2 {
   font-size: 60px;
-  margin-bottom: 40px;
 }
 
 .bottomBox {
@@ -84,7 +79,7 @@ p{
 
 .btExpand {
   position: absolute;
-  background-color: cornflowerblue;
+  background-color: #6495ed;
   border-radius: 100px;
   height: 54px;
   width: 80px;
@@ -115,14 +110,13 @@ p{
 }
 
 .divLabelIn {
-  margin: -15px auto;
+  margin: -20px auto;
   margin-bottom: 5px;
 }
 
 .btIn,
 .inputIn {
-  vertical-align: middle;
-  border: #71ccd5;
+  border: lightseagreen;
   height: 50px;
   width: 70px;
   background-color: #0000;
@@ -134,7 +128,6 @@ p{
   text-align: center;
   font-size: 20px;
   padding-bottom: 4px;
-
   border-style: solid;
   outline: none
 }
@@ -155,21 +148,21 @@ p{
 }
 
 .labelIn {
-  background-color: #6495ed;
+  background-color: white;
   border-radius: 100px;
   height: 30px;
   width: 50px;
-  font-size: 10px;
+  font-size: 15px;
   border-style: none;
   padding: 6px 12px;
   font-family: 'PassionOne';
-  color: white;
+  color: #6495ed;
   align-self: center;
   padding-inline: 0px 0px;
 }
 
 .backgroundSelectorDiv {
-  background-color: #4169e1;
+  background-color: #6495ed;
   transform: translateZ(1px);
   border-radius: 15px;
   padding-top: 15px;
@@ -179,12 +172,35 @@ p{
 }
 
 .arrowUp {
-  fill: sandybrown;
   margin-bottom: -5px;
 }
 
 .arrowDown {
   visibility: hidden;
-  fill: sandybrown;
   transform: rotate(180deg);
+}
+
+.inDiv{
+  opacity: 0.0;
+  transition: all 500ms;
+  margin-bottom: -100px;
+}
+.inDiv.open {
+  margin-bottom: 0px;
+  opacity: 1;
+}
+
+.divTitle{
+  height: 30%;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.divMain{
+  height: 50%;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
