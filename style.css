@@ -9,10 +9,12 @@
   /*a name to be used later*/
   src: url('./src/fonts/PassionOne.ttf')
 }
-p{
+
+p {
   font-family: PoretOne;
   margin: 0px;
 }
+
 .t1,
 .t2 {
   font-size: 44px;
@@ -95,6 +97,26 @@ p{
 
 .btExpand:hover {
   background-color: lightseagreen;
+  cursor: pointer;
+}
+
+.leftTextButton {
+  align-self: center;
+  position: absolute;
+  margin-top: 16px;
+  margin-bottom: 12px;
+  margin-left: 20px;
+  height: 40px;
+  opacity: .3;
+}
+
+.leftTextButton:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+.leftTextButton:active {
+  transform: scale(110%);
 }
 
 .divInput {
@@ -134,16 +156,21 @@ p{
 
 .btIn:hover {
   background-color: #ffffff2c;
+  cursor: pointer;
+}
+
+.btIn:active {
+  background-color: lightseagreen;
 }
 
 .inputIn:hover {
   background-color: #ffffff2c;
+  cursor: pointer;
 }
 
 .inputIn {
   height: 42.33px;
   width: 60.32px;
-
   border-style: dashed;
 }
 
@@ -180,27 +207,52 @@ p{
   transform: rotate(180deg);
 }
 
-.inDiv{
+.inDiv {
+  margin-top: -50px;
+  margin-bottom: -50px;
   opacity: 0.0;
-  transition: all 500ms;
-  margin-bottom: -100px;
-}
-.inDiv.open {
-  margin-bottom: 0px;
-  opacity: 1;
+  transform: scaleY(30%);
+  transition: all 300ms ease;
 }
 
-.divTitle{
+.inDiv.open {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  opacity: 1;
+  transform: scaleY(100%);
+}
+
+.divTitle {
   height: 30%;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.divMain{
+
+.divMain {
   height: 50%;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.errorText {
+  transition: all 300ms;
+  padding: 6px 30px;
+  border-radius: 100px;
+  width: fit-content;
+  margin: auto;
+  font-family: 'PassionOne';
+  color: white;
+  font-size: 20px;
+  background-color: #e25b5b;
+  opacity: 0;
+  transform: scale(100%);
+}
+
+.errorText.show {
+  opacity: 1;
+  transform: scale(120%);
 }

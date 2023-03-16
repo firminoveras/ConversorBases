@@ -1,12 +1,36 @@
 const LAST_BASE_IN = 0
 const LAST_BASE_OUT = 1
 
+const ALERT_ERROR = 0
+const ALERT_SUCESS = 1
+const ALERT_GENERIC = 3
+
 let inBase = 2
 let outBase = 10
 let lastBase = LAST_BASE_IN;
 
 function validBase(base) {
 	return base >= 2 && base <= 36 && /^[0-9]{1,2}$/.test(base)
+}
+
+function showMessage(alertType, text) {
+	let messageOutput = document.getElementById('errorText');
+	switch (alertType) {
+		case ALERT_ERROR:
+			messageOutput.style.backgroundColor = '#e25b5b'
+			break;
+		case ALERT_SUCESS:
+			messageOutput.style.backgroundColor = '#22AA22'
+			break;
+		default:
+			messageOutput.style.backgroundColor = '#222222'
+			break;
+	}
+	errorText.innerHTML = text
+	errorText.classList.add('show');
+	setTimeout(function () {
+		errorText.classList.remove('show');
+	}, 3000);
 }
 
 function convertToDec(num, base) {
@@ -20,7 +44,7 @@ function convertToDec(num, base) {
 		num = num.split('.')[0]
 		for (var i = 0; i < fracNumber.length; i++) {
 			let number;
-			if (fracNumber.charCodeAt(i) >= 48 && fracNumber.charCodeAt(i) < 48 + Math.min(base, 9))
+			if (fracNumber.charCodeAt(i) >= 48 && fracNumber.charCodeAt(i) < 48 + Math.min(base, 10))
 				number = Number(fracNumber[i]);
 			else if (fracNumber.charCodeAt(i) >= 65 && fracNumber.charCodeAt(i) < (55 + base) && base > 10)
 				number = (fracNumber.charCodeAt(i)) - 55;
@@ -32,7 +56,7 @@ function convertToDec(num, base) {
 	exp = 0;
 	for (var i = num.length - 1; i >= 0; i--) {
 		let number;
-		if (num.charCodeAt(i) >= 48 && num.charCodeAt(i) < 48 + Math.min(base, 9))
+		if (num.charCodeAt(i) >= 48 && num.charCodeAt(i) < 48 + Math.min(base, 10))
 			number = Number(num[i]);
 		else if (num.charCodeAt(i) >= 65 && num.charCodeAt(i) < (55 + base) && base > 10)
 			number = (num.charCodeAt(i)) - 55;
@@ -71,15 +95,13 @@ function convert(input, inputBase, outputBase) {
 function updateConversion() {
 	setBaseSelectorVisible(false)
 	let text = document.getElementById('numberInput').value
-	document.getElementById('numberOutput').style.fontSize = '40px'
 	document.getElementById('numberOutput').value = ''
 	if (text.length > 0) {
 		try {
 			text = convert(text, inBase, outBase)
 			document.getElementById('numberOutput').value = text
 		} catch (error) {
-			document.getElementById('numberOutput').style.fontSize = '20px'
-			document.getElementById('numberOutput').value = error.message
+			showMessage(ALERT_ERROR, error.message)
 		}
 	}
 }
@@ -99,41 +121,59 @@ function baseSelectorCustomApply() {
 }
 
 function updateBaseOfLastElement(base) {
-	if (lastBase == LAST_BASE_IN) {
-		document.getElementById('inChangeButton').innerHTML = base.toString()
-		inBase = base
-	} else {
-		document.getElementById('outChangeButton').innerHTML = base.toString()
-		outBase = base
+	if (validBase(base)) {
+		if (lastBase == LAST_BASE_IN) {
+			document.getElementById('inChangeButton').innerHTML = base.toString()
+			inBase = base
+		} else {
+			document.getElementById('outChangeButton').innerHTML = base.toString()
+			outBase = base
+		}
+		updateConversion();
 	}
-	updateConversion();
 }
 
 function setBaseSelectorVisible(visibility) {
-	if (visibility)
-		document.getElementById('inDiv').classList.add('open')
-	else
-		document.getElementById('inDiv').classList.remove('open')
-
+	if (visibility) document.getElementById('inDiv').classList.add('open')
+	else document.getElementById('inDiv').classList.remove('open')
 }
+
+function getIsBaseSelectorVisible() {
+	return document.getElementById('inDiv').classList.contains('open')
+}
+
 
 (function (window, document, undefined) {
 	window.onload = init;
 	function init() {
 		document.getElementById('inChangeButton').addEventListener('click', () => {
-			document.getElementById('inDiv').classList.toggle('open')
-			lastBase = LAST_BASE_IN;
+			if (getIsBaseSelectorVisible() && lastBase == LAST_BASE_IN) setBaseSelectorVisible(false)
+			else setBaseSelectorVisible(true)
 			document.getElementById('arrowUp').style.visibility = 'visible'
 			document.getElementById('arrowDown').style.visibility = 'hidden'
 			document.getElementById('backgroundSelectorDiv').style.visibility = 'visible'
+			lastBase = LAST_BASE_IN;
 		})
 
-		document.getElementById('outChangeButton').addEventListener('click', () => {
-			document.getElementById('inDiv').classList.toggle('open')
-			lastBase = LAST_BASE_OUT;
+		document.getElementById('inChangeButton').addEventListener('wheel', event => {
+			let delta = Math.sign(event.deltaY);
+			lastBase = LAST_BASE_IN;
+			updateBaseOfLastElement(Number(document.getElementById('inChangeButton').innerHTML) - (delta))
+		})
+
+		document.getElementById('outChangeButton').addEventListener('scroll', () => {
+			if (getIsBaseSelectorVisible() && lastBase == LAST_BASE_OUT) setBaseSelectorVisible(false)
+			else setBaseSelectorVisible(true)
 			document.getElementById('arrowUp').style.visibility = 'hidden'
 			document.getElementById('arrowDown').style.visibility = 'visible'
 			document.getElementById('backgroundSelectorDiv').style.visibility = 'visible'
+			lastBase = LAST_BASE_OUT;
+		})
+
+		document.getElementById('outChangeButton').addEventListener('wheel', event => {
+			let delta = Math.sign(event.deltaY);
+			lastBase = LAST_BASE_OUT;
+			updateBaseOfLastElement(Number(document.getElementById('outChangeButton').innerHTML) - (delta))
 		})
 
 		document.getElementById('numberInput').addEventListener('input', function (evt) { updateConversion(); })
@@ -142,6 +182,32 @@ function setBaseSelectorVisible(visibility) {
 		document.getElementById('baseSelector10').addEventListener('click', () => updateBaseOfLastElement(10))
 		document.getElementById('baseSelector16').addEventListener('click', () => updateBaseOfLastElement(16))
 		document.getElementById('baseSelectorCustom').addEventListener('keypress', function (evt) { if (evt.key == 'Enter') baseSelectorCustomApply() })
+
+
+		document.getElementById('btPaste').addEventListener('click', () => {
+			navigator.clipboard.readText().then(
+				cliptext => {
+					document.getElementById('numberInput').value = cliptext
+					updateConversion()
+				},
+				err => {
+					showMessage(ALERT_ERROR, "Permissão para usar a Área de Transferência negada. Os botões de copiar e colar ficarão indisponíves.")
+					document.getElementById('btPaste').style.visibility = 'hidden'
+					document.getElementById('btCopy').style.visibility = 'hidden'
+				}
+			);
+		})
+
+		document.getElementById('btCopy').addEventListener('click', () => {
+			navigator.clipboard.writeText(document.getElementById('numberOutput').value).then(
+				sucess => showMessage(ALERT_SUCESS, 'Resultado copiado!'),
+				err => {
+					showMessage(ALERT_ERROR, "Permissão para usar a Área de Transferência negada. Os botões de copiar e colar ficarão indisponíves.")
+					document.getElementById('btPaste').style.visibility = 'hidden'
+					document.getElementById('btCopy').style.visibility = 'hidden'
+				}
+			);
+		})
 	}
 })(window, document, undefined);
 
