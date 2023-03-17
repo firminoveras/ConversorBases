@@ -9,15 +9,20 @@
 	<meta charset="utf-8">
 </head>
 
-<body>
-	<div class="box">
+<body id="body">
+	<div class="topBox">
+		<img src="./src/drawables/darkmode.png" class="btDarkMode" id="btDarkMode" />
+	</div>
+	<div class="box" id="box">
 		<div class="divTitle">
-			<h1 class="t1">CALCULADORA</h1>
-			<h1 class="t2">DE BASES</h1>
+			<div class="divTitleInside">
+				<h1 class="t1">CALCULADORA</h1>
+				<h1 class="t2">DE BASES</h1>
+			</div>
 		</div>
 		<div class="divMain">
 			<div class="divInput">
-				<img src="./src/drawables/paste.png" class="leftTextButton" id="btPaste"/>
+				<img src="./src/drawables/paste.png" class="leftTextButton" id="btPaste" />
 				<input class="numberInput" id="numberInput" maxlength="15">
 				<button class="btExpand" id="inChangeButton">2</button>
 			</div>
@@ -44,17 +49,17 @@
 			</div>
 
 
-			<div class="divInput"><img src="./src/drawables/copy.png" class="leftTextButton" id="btCopy"/>
+			<div class="divInput"><img src="./src/drawables/copy.png" class="leftTextButton" id="btCopy" />
 				<input class="numberOutput" id="numberOutput" maxlength="15" readonly>
 				<button class="btExpand" id="outChangeButton">10</button>
 			</div>
-			
+
 		</div>
 		<p class="errorText" id="errorText"></p>
 
 	</div>
 
-	<div class="bottomBox">
+	<div class="bottomBox" id="bottomBox">
 		<p style="font-size: 20px;">Desenvolvido por Firmino Veras</p>
 		<p style="font-size: 12px;">Desafio da Disciplina de Cálculo Numérico</p>
 		<p style="font-size: 12px;">Professor: Jucelio Soares</p>

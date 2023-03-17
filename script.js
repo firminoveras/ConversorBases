@@ -210,7 +210,6 @@ function getIsBaseSelectorVisible() {
 		document.getElementById('baseSelector16').addEventListener('click', () => updateBaseOfLastElement(16))
 		document.getElementById('baseSelectorCustom').addEventListener('keypress', function (evt) { if (evt.key == 'Enter') baseSelectorCustomApply() })
 
-
 		document.getElementById('btPaste').addEventListener('click', () => {
 			navigator.clipboard.readText().then(
 				cliptext => {
@@ -234,6 +233,13 @@ function getIsBaseSelectorVisible() {
 					document.getElementById('btCopy').style.visibility = 'hidden'
 				}
 			);
+		})
+
+		document.getElementById('btDarkMode').addEventListener('click', () => {
+			document.body.classList.toggle('dark')
+			document.getElementById('bottomBox').classList.toggle('dark')
+			document.getElementById('box').classList.toggle('dark')
+			document.getElementById('btDarkMode').classList.toggle('dark')
 		})
 	}
 })(window, document, undefined);
