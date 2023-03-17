@@ -1,3 +1,6 @@
+// Quanto maior esse número, mais precisão o cálculo float terá
+const LIMIT_FLOAT_NUMBERS = 10
+
 const LAST_BASE_IN = 0
 const LAST_BASE_OUT = 1
 
@@ -68,28 +71,52 @@ function convertToDec(num, base) {
 }
 
 function convertFromDec(num, base) {
-	if (base == 10) return num
-	if (!validBase(base)) throw new Error("Base não suportada!");
+	num = num.toString().toUpperCase();
+	let out = ""
+	let fracResults = []
+	let isFloat = false
+	if (!validBase(base)) throw new Error("Base não suportada!")
+	if (num.includes('.')) {
+		isFloat = true
+		fracNumber = parseFloat('0.' + num.split('.')[1])
+		num = num.split('.')[0]
+		let iterations = 0
+		while (fracNumber * base != 0.0 && iterations < LIMIT_FLOAT_NUMBERS) {
+			let n = fracNumber * base
+			fracResults.push(Math.floor(n))
+			fracNumber = n - Math.floor(n)
+			iterations++;
+		}
+	}
 	let n = Number(num)
-	let results = [];
+	let results = []
 	while (n > 0) {
-		let quociente = Math.floor(n / base);
+		let quociente = Math.floor(n / base)
 		let resto = n % base;
-		n = quociente;
+		n = quociente
 		results.push(resto)
 	}
-	let out = "";
 	for (var i = results.length - 1; i >= 0; i--) {
 		r = results[i]
 		if (Number(r) > 9)
 			r = String.fromCharCode(55 + r)
-		out += r;
+		out += r
 	}
-	return out;
+	if (isFloat) {
+		out += ".";
+		for (var i = 0; i < fracResults.length; i++) {
+			r = fracResults[i]
+			if (Number(r) > 9)
+				r = String.fromCharCode(55 + r)
+			out += r
+		}
+	}
+	return out
 }
 
 function convert(input, inputBase, outputBase) {
-	return convertFromDec(convertToDec(input, inputBase), outputBase)
+	if (inputBase != outputBase) return convertFromDec(convertToDec(input, inputBase), outputBase)
+	else return input
 }
 
 function updateConversion() {
@@ -161,7 +188,7 @@ function getIsBaseSelectorVisible() {
 			updateBaseOfLastElement(Number(document.getElementById('inChangeButton').innerHTML) - (delta))
 		})
 
-		document.getElementById('outChangeButton').addEventListener('scroll', () => {
+		document.getElementById('outChangeButton').addEventListener('click', () => {
 			if (getIsBaseSelectorVisible() && lastBase == LAST_BASE_OUT) setBaseSelectorVisible(false)
 			else setBaseSelectorVisible(true)
 			document.getElementById('arrowUp').style.visibility = 'hidden'
@@ -210,4 +237,3 @@ function getIsBaseSelectorVisible() {
 		})
 	}
 })(window, document, undefined);
-
