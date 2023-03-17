@@ -1,4 +1,3 @@
-// Quanto maior esse número, mais precisão o cálculo float terá
 const LIMIT_FLOAT_NUMBERS = 10
 
 const LAST_BASE_IN = 0
@@ -6,72 +5,53 @@ const LAST_BASE_OUT = 1
 
 const ALERT_ERROR = 0
 const ALERT_SUCESS = 1
-const ALERT_GENERIC = 3
+const ALERT_GENERIC = 2
 
 let inBase = 2
 let outBase = 10
-let lastBase = LAST_BASE_IN;
+let lastBase = LAST_BASE_IN
 
 function validBase(base) {
 	return base >= 2 && base <= 36 && /^[0-9]{1,2}$/.test(base)
 }
 
-function showMessage(alertType, text) {
-	let messageOutput = document.getElementById('errorText');
-	switch (alertType) {
-		case ALERT_ERROR:
-			messageOutput.style.backgroundColor = '#e25b5b'
-			break;
-		case ALERT_SUCESS:
-			messageOutput.style.backgroundColor = '#22AA22'
-			break;
-		default:
-			messageOutput.style.backgroundColor = '#222222'
-			break;
-	}
-	errorText.innerHTML = text
-	errorText.classList.add('show');
-	setTimeout(function () {
-		errorText.classList.remove('show');
-	}, 3000);
-}
-
 function convertToDec(num, base) {
-	num = num.toString().toUpperCase();
-	if (!validBase(base)) throw new Error("Base não suportada!");
-	let exp = -1;
-	let result = 0.0;
-
+	num = num.toString().toUpperCase()
+	if (!validBase(base)) throw new Error("Base não suportada!")
+	let exp = -1
+	let result = 0.0
+	
 	if (num.includes('.')) {
 		fracNumber = num.split('.')[1]
 		num = num.split('.')[0]
 		for (var i = 0; i < fracNumber.length; i++) {
-			let number;
+			let number
 			if (fracNumber.charCodeAt(i) >= 48 && fracNumber.charCodeAt(i) < 48 + Math.min(base, 10))
-				number = Number(fracNumber[i]);
+				number = Number(fracNumber[i])
 			else if (fracNumber.charCodeAt(i) >= 65 && fracNumber.charCodeAt(i) < (55 + base) && base > 10)
-				number = (fracNumber.charCodeAt(i)) - 55;
-			else throw new Error("Algarismo inválido!");
-			result += number * (base ** exp);
-			exp--;
+				number = (fracNumber.charCodeAt(i)) - 55
+			else throw new Error("Algarismo inválido!")
+			result += number * (base ** exp)
+			exp--
 		}
 	}
-	exp = 0;
+	exp = 0
 	for (var i = num.length - 1; i >= 0; i--) {
-		let number;
+		let number
 		if (num.charCodeAt(i) >= 48 && num.charCodeAt(i) < 48 + Math.min(base, 10))
-			number = Number(num[i]);
+			number = Number(num[i])
 		else if (num.charCodeAt(i) >= 65 && num.charCodeAt(i) < (55 + base) && base > 10)
-			number = (num.charCodeAt(i)) - 55;
-		else throw new Error("Algarismo inválido!");
-		result += number * (base ** exp);
-		exp++;
+			number = (num.charCodeAt(i)) - 55
+		else throw new Error("Algarismo inválido!")
+		result += number * (base ** exp)
+		exp++
 	}
-	return result;
+	
+	return result
 }
 
 function convertFromDec(num, base) {
-	num = num.toString().toUpperCase();
+	num = num.toString().toUpperCase()
 	let out = ""
 	let fracResults = []
 	let isFloat = false
@@ -81,18 +61,18 @@ function convertFromDec(num, base) {
 		fracNumber = parseFloat('0.' + num.split('.')[1])
 		num = num.split('.')[0]
 		let iterations = 0
-		while (fracNumber * base != 0.0 && iterations < LIMIT_FLOAT_NUMBERS) {
+		while (fracNumber * base != 0.0 && iterations <= LIMIT_FLOAT_NUMBERS) {
 			let n = fracNumber * base
 			fracResults.push(Math.floor(n))
 			fracNumber = n - Math.floor(n)
-			iterations++;
+			iterations++
 		}
 	}
 	let n = Number(num)
 	let results = []
 	while (n > 0) {
 		let quociente = Math.floor(n / base)
-		let resto = n % base;
+		let resto = n % base
 		n = quociente
 		results.push(resto)
 	}
@@ -103,7 +83,7 @@ function convertFromDec(num, base) {
 		out += r
 	}
 	if (isFloat) {
-		out += ".";
+		out += "."
 		for (var i = 0; i < fracResults.length; i++) {
 			r = fracResults[i]
 			if (Number(r) > 9)
@@ -117,6 +97,25 @@ function convertFromDec(num, base) {
 function convert(input, inputBase, outputBase) {
 	if (inputBase != outputBase) return convertFromDec(convertToDec(input, inputBase), outputBase)
 	else return input
+}
+function showMessage(alertType, text) {
+	let messageOutput = document.getElementById('errorText')
+	switch (alertType) {
+		case ALERT_ERROR:
+			messageOutput.style.backgroundColor = '#E25B5B'
+			break
+		case ALERT_SUCESS:
+			messageOutput.style.backgroundColor = '#22AA22'
+			break
+		default:
+			messageOutput.style.backgroundColor = '#222222'
+			break
+	}
+	errorText.innerHTML = text
+	errorText.classList.add('show')
+	setTimeout(function () {
+		errorText.classList.remove('show')
+	}, 3000)
 }
 
 function updateConversion() {
@@ -143,7 +142,7 @@ function baseSelectorCustomApply() {
 			document.getElementById('outChangeButton').innerHTML = text
 			outBase = Number(text)
 		}
-		updateConversion();
+		updateConversion()
 	}
 }
 
@@ -156,7 +155,7 @@ function updateBaseOfLastElement(base) {
 			document.getElementById('outChangeButton').innerHTML = base.toString()
 			outBase = base
 		}
-		updateConversion();
+		updateConversion()
 	}
 }
 
@@ -169,9 +168,8 @@ function getIsBaseSelectorVisible() {
 	return document.getElementById('inDiv').classList.contains('open')
 }
 
-
 (function (window, document, undefined) {
-	window.onload = init;
+	window.onload = init
 	function init() {
 		document.getElementById('inChangeButton').addEventListener('click', () => {
 			if (getIsBaseSelectorVisible() && lastBase == LAST_BASE_IN) setBaseSelectorVisible(false)
@@ -179,12 +177,12 @@ function getIsBaseSelectorVisible() {
 			document.getElementById('arrowUp').style.visibility = 'visible'
 			document.getElementById('arrowDown').style.visibility = 'hidden'
 			document.getElementById('backgroundSelectorDiv').style.visibility = 'visible'
-			lastBase = LAST_BASE_IN;
+			lastBase = LAST_BASE_IN
 		})
 
 		document.getElementById('inChangeButton').addEventListener('wheel', event => {
-			let delta = Math.sign(event.deltaY);
-			lastBase = LAST_BASE_IN;
+			let delta = Math.sign(event.deltaY)
+			lastBase = LAST_BASE_IN
 			updateBaseOfLastElement(Number(document.getElementById('inChangeButton').innerHTML) - (delta))
 		})
 
@@ -194,16 +192,16 @@ function getIsBaseSelectorVisible() {
 			document.getElementById('arrowUp').style.visibility = 'hidden'
 			document.getElementById('arrowDown').style.visibility = 'visible'
 			document.getElementById('backgroundSelectorDiv').style.visibility = 'visible'
-			lastBase = LAST_BASE_OUT;
+			lastBase = LAST_BASE_OUT
 		})
 
 		document.getElementById('outChangeButton').addEventListener('wheel', event => {
-			let delta = Math.sign(event.deltaY);
-			lastBase = LAST_BASE_OUT;
+			let delta = Math.sign(event.deltaY)
+			lastBase = LAST_BASE_OUT
 			updateBaseOfLastElement(Number(document.getElementById('outChangeButton').innerHTML) - (delta))
 		})
 
-		document.getElementById('numberInput').addEventListener('input', function (evt) { updateConversion(); })
+		document.getElementById('numberInput').addEventListener('input', function (evt) { updateConversion() })
 		document.getElementById('baseSelector2').addEventListener('click', () => updateBaseOfLastElement(2))
 		document.getElementById('baseSelector8').addEventListener('click', () => updateBaseOfLastElement(8))
 		document.getElementById('baseSelector10').addEventListener('click', () => updateBaseOfLastElement(10))
@@ -221,7 +219,7 @@ function getIsBaseSelectorVisible() {
 					document.getElementById('btPaste').style.visibility = 'hidden'
 					document.getElementById('btCopy').style.visibility = 'hidden'
 				}
-			);
+			)
 		})
 
 		document.getElementById('btCopy').addEventListener('click', () => {
@@ -232,7 +230,7 @@ function getIsBaseSelectorVisible() {
 					document.getElementById('btPaste').style.visibility = 'hidden'
 					document.getElementById('btCopy').style.visibility = 'hidden'
 				}
-			);
+			)
 		})
 
 		document.getElementById('btDarkMode').addEventListener('click', () => {
@@ -242,4 +240,4 @@ function getIsBaseSelectorVisible() {
 			document.getElementById('btDarkMode').classList.toggle('dark')
 		})
 	}
-})(window, document, undefined);
+})(window, document, undefined)

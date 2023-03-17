@@ -1,12 +1,10 @@
 @font-face {
   font-family: 'PoretOne';
-  /*a name to be used later*/
   src: url('./src/fonts/PoiretOne.ttf')
 }
 
 @font-face {
   font-family: 'PassionOne';
-  /*a name to be used later*/
   src: url('./src/fonts/PassionOne.ttf')
 }
 
@@ -298,8 +296,9 @@ p {
   opacity: .6;
   transition: content 400ms;
 }
-.btDarkMode.dark{
-   content: url('./src/drawables/normalmode.png');
+
+.btDarkMode.dark {
+  content: url('./src/drawables/normalmode.png');
 }
 
 .btDarkMode:hover {
