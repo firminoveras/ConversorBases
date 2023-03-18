@@ -17,4 +17,10 @@ O programa deve receber um sistema de origem, um sistema de destino e uma entrad
 - Disciplina: Cálculo Numérico
 - Semestre: 2023.1
 
+## 🫂 Grupo
+- Davi Teixeira Gonçalo
+- José Firmino Veras Neto
+- Matheus Victor Alves Pereira
+- Vitória Maria Albuquerque da Silva
+
 `março de 2023`
