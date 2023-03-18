@@ -17,7 +17,7 @@ function validBase(base) {
 
 function convertToDec(num, base) {
 	num = num.toString().toUpperCase()
-	if (!validBase(base)) throw new Error("Base não suportada!")
+	if (!validBase(base)) throw new Error("Base de entrada não suportada!")
 	let exp = -1
 	let result = 0.0
 	
@@ -30,7 +30,7 @@ function convertToDec(num, base) {
 				number = Number(fracNumber[i])
 			else if (fracNumber.charCodeAt(i) >= 65 && fracNumber.charCodeAt(i) < (55 + base) && base > 10)
 				number = (fracNumber.charCodeAt(i)) - 55
-			else throw new Error("Algarismo inválido!")
+			else throw new Error("Algarismo de entrada inválido!")
 			result += number * (base ** exp)
 			exp--
 		}
@@ -42,7 +42,7 @@ function convertToDec(num, base) {
 			number = Number(num[i])
 		else if (num.charCodeAt(i) >= 65 && num.charCodeAt(i) < (55 + base) && base > 10)
 			number = (num.charCodeAt(i)) - 55
-		else throw new Error("Algarismo inválido!")
+		else throw new Error("Algarismo de entrada inválido!")
 		result += number * (base ** exp)
 		exp++
 	}
@@ -55,7 +55,7 @@ function convertFromDec(num, base) {
 	let out = ""
 	let fracResults = []
 	let isFloat = false
-	if (!validBase(base)) throw new Error("Base não suportada!")
+	if (!validBase(base)) throw new Error("Base de saída não suportada!")
 	if (num.includes('.')) {
 		isFloat = true
 		fracNumber = parseFloat('0.' + num.split('.')[1])
@@ -234,10 +234,13 @@ function getIsBaseSelectorVisible() {
 		})
 
 		document.getElementById('btDarkMode').addEventListener('click', () => {
-			document.body.classList.toggle('dark')
 			document.getElementById('bottomBox').classList.toggle('dark')
 			document.getElementById('box').classList.toggle('dark')
 			document.getElementById('btDarkMode').classList.toggle('dark')
+			document.getElementById('bottomText1').classList.toggle('dark')
+			document.getElementById('bottomText2').classList.toggle('dark')
+			document.getElementById('bottomText3').classList.toggle('dark')
+			document.getElementById('darkModeRipple').classList.toggle('dark')
 		})
 	}
 })(window, document, undefined)
